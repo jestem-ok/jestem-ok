@@ -1,0 +1,38 @@
+# Local development services.
+#
+#   docker compose up -d                 -> PostgreSQL only (run the backend from your IDE or with Maven)
+#   docker compose --profile full up -d  -> PostgreSQL + backend in a container
+#   docker compose down                  -> stop everything (data is kept in the db-data volume)
+
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: jestemok
+      POSTGRES_USER: jestemok
+      POSTGRES_PASSWORD: jestemok   # local development only
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jestemok -d jestemok"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    profiles: ["full"]
+    build: ./backend
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/jestemok
+      DB_USER: jestemok
+      DB_PASSWORD: jestemok
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db-data:

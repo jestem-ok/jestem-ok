@@ -1,0 +1,93 @@
+# Runs on every pull request and on every push to main.
+# The "changes" job checks which folders changed, so a mobile-only PR
+# does not wait for the backend build (and the other way round).
+# Skipped jobs count as passed, so both jobs can be required checks.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      backend: ${{ steps.filter.outputs.backend }}
+      mobile: ${{ steps.filter.outputs.mobile }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            backend:
+              - 'backend/**'
+              - '.github/workflows/ci.yml'
+            mobile:
+              - 'mobile/**'
+              - '.github/workflows/ci.yml'
+
+  backend:
+    name: Backend build and tests
+    needs: changes
+    if: needs.changes.outputs.backend == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+          cache-dependency-path: backend/pom.xml
+      # Tests start a real PostgreSQL with Testcontainers (Docker is available on GitHub runners).
+      # After the Maven Wrapper is added (see docs/maintainer-setup.md), change "mvn" to "./mvnw".
+      - name: Build and test
+        run: mvn -B verify
+
+  mobile:
+    name: Mobile lint and type check
+    needs: changes
+    if: needs.changes.outputs.mobile == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mobile
+    steps:
+      - uses: actions/checkout@v5
+      - name: Check whether the Expo app exists yet
+        id: app
+        run: |
+          if [ -f package.json ]; then echo "exists=true" >> "$GITHUB_OUTPUT"; else echo "exists=false" >> "$GITHUB_OUTPUT"; echo "No mobile/package.json yet, skipping."; fi
+      - uses: actions/setup-node@v4
+        if: steps.app.outputs.exists == 'true'
+        with:
+          node-version: lts/*
+          cache: npm
+          cache-dependency-path: mobile/package-lock.json
+      - name: Install dependencies
+        if: steps.app.outputs.exists == 'true'
+        run: npm ci
+      - name: Lint
+        if: steps.app.outputs.exists == 'true'
+        run: npm run lint --if-present
+      - name: Type check
+        if: steps.app.outputs.exists == 'true' && hashFiles('mobile/tsconfig.json') != ''
+        run: npx tsc --noEmit
+      - name: Tests
+        if: steps.app.outputs.exists == 'true'
+        run: npm test --if-present

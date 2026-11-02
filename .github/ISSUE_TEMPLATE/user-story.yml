@@ -1,0 +1,55 @@
+name: User story
+description: Something a user needs, written by the product owners
+title: "US-: "
+labels: ["user-story"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe **what** the user needs and **why**, not screens or technology.
+        You can write the story in Polish.
+  - type: dropdown
+    id: user
+    attributes:
+      label: Who is the user?
+      options:
+        - Senior with the app
+        - Senior using SMS only
+        - Caregiver (registers and looks after a senior)
+        - Contact (receives alerts)
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: story
+    attributes:
+      label: Story
+      description: "Jako [kto] chcę [co], aby [po co]."
+      placeholder: Jako senior bez smartfona chcę odpowiedzieć „tak" na SMS, aby moja rodzina wiedziała, że wszystko w porządku.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: 2–4 points. How do we know it works?
+      placeholder: |
+        - Odpowiedź z mojego numeru zostaje zapisana jako potwierdzenie
+        - Po potwierdzeniu nikt nie dostaje alarmu
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - must (without it the app makes no sense)
+        - should (important, but the app works without it)
+        - could (nice to have)
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes, questions, sketches
+      description: Optional. Drag in drawings or screenshots.

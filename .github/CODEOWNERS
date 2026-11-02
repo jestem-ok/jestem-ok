@@ -1,0 +1,13 @@
+# Code owners are asked to review automatically, and their approval is required
+# to merge (see docs/maintainer-setup.md, branch ruleset).
+# The LAST matching line wins.
+#
+# Teams are created in the organization settings: maintainers, backend, mobile.
+# Want one specific person to approve mobile PRs? Replace the team with their
+# username, e.g.  /mobile/  @their-github-username
+
+*            @jestem-ok/maintainers
+/backend/    @jestem-ok/backend
+/mobile/     @jestem-ok/mobile
+/docs/       @jestem-ok/maintainers
+/.github/    @jestem-ok/maintainers

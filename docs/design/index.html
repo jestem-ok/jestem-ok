@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f7f6f2">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex">
+<meta name="description" content="Jestem OK – codzienne potwierdzenie samopoczucia i szybki kontakt z bliskimi (wersja pokazowa).">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Jestem OK</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23256a47'%3E%3Cpath d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f6f2;
+  --green:#256a47;
+  --green-press:#1d5a3b;
+  --mint:#e3eee6;
+  --ink:#26302b;
+  --muted:#6f766f;
+  --line:#e6e4de;
+  --card:#ffffff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  background:#ecebe5;color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid #7aa88e;outline-offset:2px}
+
+/* ---------- app shell ---------- */
+.app{
+  max-width:520px;margin:0 auto;
+  min-height:100vh;min-height:100dvh;
+  background:var(--bg);
+  display:flex;flex-direction:column;
+}
+@media (min-width:561px){ .app{box-shadow:0 0 0 1px #e1dfd8} }
+
+.top{padding:calc(env(safe-area-inset-top,0px) + 16px) 24px 0;margin-bottom:34px}
+.brand{display:inline-flex;align-items:center;gap:12px;border-radius:12px}
+.brand .logo{width:34px;height:34px;border-radius:10px;background:var(--mint);display:grid;place-items:center;color:var(--green)}
+.brand b{font-size:17px;font-weight:700;color:var(--green);letter-spacing:.2px}
+
+main{flex:1;padding:0 24px 32px}
+.view{animation:enter .22s ease-out}
+@keyframes enter{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ---------- typography ---------- */
+h1{font-size:34px;font-weight:400;line-height:1.15;letter-spacing:-.4px}
+h2{font-size:25px;font-weight:400;line-height:1.2;letter-spacing:-.2px}
+h1:focus{outline:none}
+.sub{color:var(--muted);font-size:18px;line-height:1.5;margin-top:10px}
+.note{color:var(--muted);font-size:14.5px;line-height:1.5;margin-top:30px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:20px}
+
+/* ---------- buttons ---------- */
+.btn-ok{
+  width:100%;height:104px;border-radius:14px;background:var(--green);color:#fff;
+  display:flex;align-items:center;justify-content:center;gap:22px;
+  font-size:29px;font-weight:600;margin:18px 0 14px;transition:background .15s,transform .1s;
+}
+.btn-ok:hover{background:var(--green-press)}
+.btn-ok:active,.btn-solid:active,.btn-line:active{transform:scale(.985)}
+.btn-line{
+  width:100%;height:64px;border-radius:16px;background:#fff;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  color:var(--green);font-size:19px;font-weight:600;transition:background .15s,transform .1s;
+}
+.btn-line:hover{background:#f6faf7}
+.btn-solid{
+  width:100%;height:72px;border-radius:16px;background:var(--green);color:#fff;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  font-size:21px;font-weight:600;transition:background .15s,transform .1s;
+}
+.btn-solid:hover{background:var(--green-press)}
+.status-line{text-align:center;font-size:15px;color:var(--muted)}
+.status-line.ok{color:var(--green);font-weight:500}
+
+.help{margin-top:30px}
+.help .btn-line{margin-top:20px}
+
+/* ---------- potwierdzenie ---------- */
+.done{text-align:center}
+.badge{width:128px;height:128px;border-radius:50%;background:var(--mint);margin:0 auto 26px;display:grid;place-items:center;color:var(--green)}
+.done h1{font-size:38px}
+.done .sub{color:var(--ink);font-size:21px;margin:14px 0 30px}
+.confirmed{text-align:left;padding:26px 28px}
+.confirmed .t{display:flex;align-items:center;gap:14px;color:var(--green);font-size:31px;letter-spacing:-.3px}
+.confirmed p{margin-top:16px;font-size:21px}
+.done .bye{font-size:23px;line-height:1.4;margin:28px 8px 28px}
+.done .note{text-align:left;margin-top:22px}
+
+/* ---------- bliscy ---------- */
+.contact{padding:20px 20px 18px;margin-bottom:18px;border-radius:26px}
+.contact .top-row{display:flex;align-items:center;gap:16px}
+.avatar{width:56px;height:56px;border-radius:50%;background:var(--mint);color:var(--green);display:grid;place-items:center;font-weight:700;font-size:21px;flex:none}
+.contact .name{font-size:26px;line-height:1.1;overflow-wrap:anywhere}
+.contact .rel{color:var(--muted);font-size:17px;margin-top:5px}
+.contact .num{font-size:23px;margin:16px 0 14px;letter-spacing:.2px}
+.contact .btn-line{height:62px}
+.add{margin-top:6px}
+
+/* ---------- dolna nawigacja ---------- */
+.nav{
+  position:sticky;bottom:0;z-index:2;
+  background:#fff;border-top:1px solid var(--line);
+  padding:12px 24px calc(12px + env(safe-area-inset-bottom,0px));
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;
+}
+.tab{height:68px;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-size:18px;color:#4d554f;transition:background .15s}
+.tab:hover{background:#f3f6f4}
+.tab[aria-current="page"]{background:var(--mint);color:var(--green);font-weight:700}
+
+/* ---------- okno dodawania kontaktu ---------- */
+.sheet-dialog{
+  border:0;padding:0;background:var(--bg);color:var(--ink);
+  width:100%;max-width:520px;max-height:100vh;max-height:100dvh;overflow:auto;
+  margin:auto auto 0;border-radius:28px 28px 0 0;
+  animation:up .22s ease-out;
+}
+.sheet-dialog::backdrop{background:rgba(20,28,23,.45)}
+@keyframes up{from{transform:translateY(40px);opacity:.4}to{transform:none;opacity:1}}
+.sheet{padding:26px 24px calc(30px + env(safe-area-inset-bottom,0px))}
+.sheet h2{margin-bottom:18px}
+.field{display:block;margin-bottom:14px}
+.field span{display:block;font-size:15px;color:var(--muted);margin-bottom:6px}
+.field input{width:100%;height:56px;border-radius:14px;border:1px solid var(--line);background:#fff;padding:0 16px;font-size:19px}
+.field input:focus{outline:2px solid var(--green);border-color:transparent}
+.row{display:grid;grid-template-columns:1fr 1.4fr;gap:12px;margin-top:20px}
+.row .btn-line,.row .btn-solid{height:60px;font-size:19px}
+
+.nojs{padding:32px 24px;font-size:20px;line-height:1.5}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<noscript><p class="nojs">Do działania aplikacji „Jestem OK” potrzebny jest włączony JavaScript.</p></noscript>
+
+<script>
+/* ---------- ikony ---------- */
+const svg = (inner, size = 24, sw = 1.8) =>
+  `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${inner}</svg>`;
+const I = {
+  heart:  (s=20)  => svg('<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>', s),
+  check:  (s=56,w=1.2) => svg('<path d="M20 6 9 17l-5-5"/>', s, w),
+  home:   (s=24)  => svg('<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>', s),
+  users:  (s=24)  => svg('<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>', s),
+  phone:  (s=24)  => svg('<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>', s),
+  plus:   (s=24)  => svg('<path d="M5 12h14"/><path d="M12 5v14"/>', s),
+  circle: (s=28)  => svg('<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>', s, 1.6),
+};
+
+/* ---------- stan ---------- */
+const KEY = 'jestem-ok-v1';
+const USER = 'Mario';
+const NOTE = 'Wersja pokazowa. Nie wysyła powiadomień ani nie wzywa pomocy.';
+const DEFAULT_CONTACTS = [
+  { name: 'Anna',  rel: 'Córka', phone: '500 123 456', initials: 'AK' },
+  { name: 'Piotr', rel: 'Syn',   phone: '501 234 567', initials: 'PK' },
+];
+
+const state = (() => {
+  const fresh = { contacts: DEFAULT_CONTACTS.slice(), confirmedAt: null };
+  try {
+    const s = JSON.parse(localStorage.getItem(KEY));
+    if (!s) return fresh;
+    return { contacts: s.contacts?.length ? s.contacts : fresh.contacts, confirmedAt: s.confirmedAt || null };
+  } catch { return fresh; }
+})();
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch {} };
+
+/* Potwierdzenie obowiązuje tylko w dniu, w którym zostało zapisane. */
+const confirmedAt = () => {
+  if (!state.confirmedAt) return null;
+  const d = new Date(state.confirmedAt);
+  return d.toDateString() === new Date().toDateString() ? d : null;
+};
+
+/* ---------- pomocnicze ---------- */
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+const fmtLong = d => cap(d.toLocaleDateString('pl-PL', { weekday: 'long', day: 'numeric', month: 'long' }));
+const fmtDay  = d => d.toLocaleDateString('pl-PL', { day: 'numeric', month: 'long' });
+const fmtTime = d => d.toLocaleTimeString('pl-PL', { hour: 'numeric', minute: '2-digit' });
+const initialsOf = n => {
+  const w = n.trim().split(/\s+/);
+  return (w.length > 1 ? w[0][0] + w[1][0] : n.trim().slice(0, 2)).toUpperCase();
+};
+
+/* ---------- widoki ---------- */
+const views = {
+  today() {
+    const at = confirmedAt();
+    return `<div class="view">
+      <h1 tabindex="-1">Dzień dobry, ${USER}</h1>
+      <p class="sub" style="font-size:17px;margin-top:8px">${fmtLong(new Date())}</p>
+
+      <section class="card" style="margin-top:34px;padding:20px 20px 18px">
+        <h2 style="font-size:24px">Jak się dziś czujesz?</h2>
+        <p class="sub" style="font-size:19px;margin-top:12px">Jeśli wszystko w porządku, naciśnij przycisk poniżej.</p>
+        <button class="btn-ok" data-act="confirm">${I.check(58, 1.2)}<span>Jestem OK</span></button>
+        <p class="status-line ${at ? 'ok' : ''}" role="status">${at ? `Dziś potwierdzono o ${fmtTime(at)}` : 'Dziś jeszcze nie potwierdzono'}</p>
+      </section>
+
+      <section class="help">
+        <h2 style="font-size:24px">Potrzebujesz pomocy?</h2>
+        <p class="sub" style="font-size:19px;margin-top:10px">Wybierz bliską osobę do rozmowy.</p>
+        <a class="btn-line" href="#/bliscy">${I.phone(24)}<span>Skontaktuj się z bliskim</span></a>
+      </section>
+
+      <p class="note">${NOTE}</p>
+    </div>`;
+  },
+
+  done() {
+    const at = confirmedAt();
+    return `<div class="view done">
+      <div class="badge">${I.check(64, 1.3)}</div>
+      <h1 tabindex="-1">Dziękujemy, ${USER}!</h1>
+      <p class="sub">Twoje „Jestem OK” jest zapisane na dziś w aplikacji.</p>
+
+      <section class="card confirmed">
+        <div class="t">${I.circle(28)}<span>Dziś potwierdzono</span></div>
+        <p>${fmtDay(at)} • godz. ${fmtTime(at)}</p>
+      </section>
+
+      <p class="bye">Na dziś to wszystko. Do zobaczenia jutro!</p>
+      <a class="btn-solid" href="#/dzisiaj">${I.home(26)}<span>Wróć do ekranu głównego</span></a>
+      <p class="note">${NOTE}</p>
+    </div>`;
+  },
+
+  contacts() {
+    const list = state.contacts.map(c => `
+      <article class="card contact">
+        <div class="top-row">
+          <div class="avatar" aria-hidden="true">${esc(c.initials)}</div>
+          <div><div class="name">${esc(c.name)}</div>${c.rel ? `<div class="rel">${esc(c.rel)}</div>` : ''}</div>
+        </div>
+        <p class="num">${esc(c.phone)}</p>
+        <button class="btn-line" data-act="call" data-name="${esc(c.name)}" data-phone="${esc(c.phone)}">${I.phone(22)}<span>Zadzwoń: ${esc(c.name.split(' ')[0])}</span></button>
+      </article>`).join('');
+    return `<div class="view">
+      <h1 tabindex="-1">Twoi bliscy</h1>
+      <p class="sub">Osoby, którym ufasz. Wybierz, do kogo chcesz zadzwonić.</p>
+      <div style="margin-top:22px">${list}</div>
+      <button class="btn-line add" data-act="add">${I.plus(22)}<span>Dodaj bliską osobę</span></button>
+      <p class="note" style="margin-top:22px">${NOTE}</p>
+    </div>`;
+  },
+};
+
+/* ---------- routing (#/dzisiaj, #/potwierdzenie, #/bliscy) ---------- */
+const ROUTES = {
+  '/dzisiaj':       { title: 'Dzisiaj',       tab: 'today',    view: 'today' },
+  '/potwierdzenie': { title: 'Potwierdzenie', tab: 'today',    view: 'done' },
+  '/bliscy':        { title: 'Bliscy',        tab: 'contacts', view: 'contacts' },
+};
+
+document.getElementById('app').innerHTML = `
+  <header class="top">
+    <a class="brand" href="#/dzisiaj" aria-label="Jestem OK – ekran główny">
+      <span class="logo">${I.heart(20)}</span><b>JESTEM OK</b>
+    </a>
+  </header>
+  <main id="main"></main>
+  <nav class="nav" aria-label="Nawigacja główna">
+    <a class="tab" href="#/dzisiaj" data-tab="today">${I.home(26)}<span>Dzisiaj</span></a>
+    <a class="tab" href="#/bliscy" data-tab="contacts">${I.users(26)}<span>Bliscy</span></a>
+  </nav>`;
+
+const main = document.getElementById('main');
+const tabs = [...document.querySelectorAll('.tab')];
+
+function route({ focus = false, animate = true } = {}) {
+  let path = location.hash.replace(/^#/, '');
+  if (!ROUTES[path]) path = '/dzisiaj';
+  // Ekran potwierdzenia ma sens tylko po kliknięciu „Jestem OK” w tym dniu.
+  if (path === '/potwierdzenie' && !confirmedAt()) {
+    history.replaceState(null, '', '#/dzisiaj');
+    path = '/dzisiaj';
+  }
+  const r = ROUTES[path];
+  main.innerHTML = views[r.view]();
+  if (!animate) main.firstElementChild.style.animation = 'none';
+  tabs.forEach(t => {
+    if (t.dataset.tab === r.tab) t.setAttribute('aria-current', 'page');
+    else t.removeAttribute('aria-current');
+  });
+  document.title = `${r.title} – Jestem OK`;
+  if (focus) {
+    window.scrollTo(0, 0);
+    main.querySelector('h1')?.focus({ preventScroll: true });
+  }
+}
+
+window.addEventListener('hashchange', () => route({ focus: true }));
+// Po powrocie do karty (np. następnego dnia) odśwież status.
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) route({ animate: false });
+});
+
+/* ---------- akcje ---------- */
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-act]');
+  if (!t) return;
+  if (t.dataset.act === 'confirm') {
+    state.confirmedAt = new Date().toISOString();
+    save();
+    location.hash = '#/potwierdzenie';
+  }
+  if (t.dataset.act === 'add') openAddDialog();
+  // Wersja online: zamiast prawdziwego połączenia z przykładowym numerem pokazujemy komunikat.
+  if (t.dataset.act === 'call') {
+    alert(`Wersja pokazowa – połączenie nie zostanie wykonane.\n\nW gotowej aplikacji ten przycisk zadzwoni do: ${t.dataset.name}, ${t.dataset.phone}.`);
+  }
+});
+
+function openAddDialog() {
+  const dlg = document.createElement('dialog');
+  dlg.className = 'sheet-dialog';
+  dlg.setAttribute('aria-labelledby', 'sheet-title');
+  dlg.innerHTML = `
+    <form class="sheet" autocomplete="off">
+      <h2 id="sheet-title">Dodaj bliską osobę</h2>
+      <label class="field"><span>Imię i nazwisko</span><input name="fullname" required maxlength="40" placeholder="np. Jan Kowalski"></label>
+      <label class="field"><span>Kim jest dla Ciebie?</span><input name="rel" maxlength="30" placeholder="np. Wnuk, Sąsiadka"></label>
+      <label class="field"><span>Numer telefonu</span><input name="phone" type="tel" inputmode="tel" required maxlength="20" placeholder="np. 502 345 678"></label>
+      <div class="row">
+        <button type="button" class="btn-line" data-close>Anuluj</button>
+        <button type="submit" class="btn-solid">Zapisz</button>
+      </div>
+    </form>`;
+  document.body.appendChild(dlg);
+  const form = dlg.querySelector('form');
+
+  dlg.addEventListener('close', () => dlg.remove());
+  dlg.addEventListener('click', e => {
+    if (e.target === dlg || e.target.closest('[data-close]')) dlg.close();
+  });
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const name  = form.elements.fullname.value.trim();
+    const phone = form.elements.phone.value.trim();
+    if (!name || !phone) return;
+    state.contacts.push({ name, rel: form.elements.rel.value.trim(), phone, initials: initialsOf(name) });
+    save();
+    dlg.close();
+    route({ animate: false });
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
+  });
+
+  dlg.showModal();
+  form.elements.fullname.focus();
+}
+
+route();
+</script>
+</body>
+</html>

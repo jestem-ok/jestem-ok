@@ -1,0 +1,37 @@
+name: Task
+description: A piece of technical work, usually part of a user story
+labels: ["task"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: What needs to be done
+      description: Clear enough that someone else could do it without asking.
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: Done when
+      description: A checklist. The PR is ready when every box can be ticked.
+      value: |
+        - [ ]
+        - [ ]
+    validations:
+      required: true
+  - type: textarea
+    id: hints
+    attributes:
+      label: Hints and links
+      description: Files to look at, documentation, related issues (e.g. "Part of #12").
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - mobile
+        - backend
+        - docs
+        - infra
+    validations:
+      required: true

@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: jestem-ok-backend
+  datasource:
+    # Defaults match docker-compose.yml. On a server, set DB_URL, DB_USER and DB_PASSWORD.
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/jestemok}
+    username: ${DB_USER:jestemok}
+    password: ${DB_PASSWORD:jestemok}
+  jpa:
+    open-in-view: false
+    hibernate:
+      # Flyway creates and changes tables; Hibernate only checks that entities match them.
+      ddl-auto: validate
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
