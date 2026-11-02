@@ -73,7 +73,7 @@ jobs:
         id: app
         run: |
           if [ -f package.json ]; then echo "exists=true" >> "$GITHUB_OUTPUT"; else echo "exists=false" >> "$GITHUB_OUTPUT"; echo "No mobile/package.json yet, skipping."; fi
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         if: steps.app.outputs.exists == 'true'
         with:
           node-version: lts/*
