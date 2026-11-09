@@ -10,3 +10,4 @@ Example: `- Anna Kowalska (@akowalska), student developer, mobile`
 
 ## People
 
+- Rafał Różycki (@RavRose), student developer, mobile
