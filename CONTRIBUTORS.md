@@ -9,4 +9,4 @@ Add yourself at the end of the list, in this format:
 Example: `- Anna Kowalska (@akowalska), student developer, mobile`
 
 ## People
-
+- Mikołaj Bulman (@Zmoroi), student
