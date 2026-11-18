@@ -1,9 +1,3 @@
-# Mobile app
-
-React Native with [Expo](https://expo.dev), one app for iOS and Android.
-
-> **Not created yet.** Creating the Expo project here is the first mobile task (see the issue "Create the Expo app in mobile/").
-
 ## Creating the app (mobile lead, once)
 
 From the repository root:
@@ -15,6 +9,24 @@ npm run lint        # check that ESLint works
 ```
 
 Then update this README with the real commands and commit `package.json` **and** `package-lock.json`.
+
+# Mobile app
+
+React Native with [Expo](https://expo.dev), one app for iOS and Android.
+
+## Get started
+
+1. Install dependencies
+
+   ```bash
+   npm install
+   ```
+
+2. Start the app
+
+   ```bash
+   npx expo start
+   ```
 
 ## Running the app on your phone
 
@@ -39,3 +51,12 @@ The look of the senior screens comes from the prototype in [docs/design/](../doc
 - Touch targets at least **56 px** high.
 - Never show information with colour alone; always add text or an icon with a label.
 - Until the backend is ready, use mock data so screens can be built and tested independently.
+
+
+## Reset project
+
+```bash
+npm run reset-project
+```
+
+This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
