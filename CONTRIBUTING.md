@@ -98,8 +98,8 @@ After approval, the author clicks **Squash and merge**, then **Delete branch**. 
 ```bash
 git switch main
 git pull
-git switch feature/42-senior-home-screen
-git merge main          # bring the new changes into your branch
+git switch docs/#7-add-Mykyta
+git merge main
 ```
 
 If Git reports a conflict, open the files it lists, choose the right version, then `git add` and `git commit`. Not sure? Ask in a comment on your PR before deleting anything.
