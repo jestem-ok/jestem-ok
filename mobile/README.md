@@ -2,19 +2,23 @@
 
 React Native with [Expo](https://expo.dev), one app for iOS and Android.
 
-> **Not created yet.** Creating the Expo project here is the first mobile task (see the issue "Create the Expo app in mobile/").
+## Get started
 
-## Creating the app (mobile lead, once)
+1. Install dependencies
 
-From the repository root:
+   ```bash
+   npm install
+   ```
 
-```bash
-cd mobile
-npx create-expo-app@latest . --template default
-npm run lint        # check that ESLint works
-```
+2. Start the app
 
-Then update this README with the real commands and commit `package.json` **and** `package-lock.json`.
+   ```bash
+   npx expo start
+   ```
+   or
+   ```bash
+   npx expo start --tunnel ngrok
+   ```
 
 ## Running the app on your phone
 
