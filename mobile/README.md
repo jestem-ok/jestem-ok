@@ -27,6 +27,10 @@ React Native with [Expo](https://expo.dev), one app for iOS and Android.
    ```bash
    npx expo start
    ```
+   or
+   ```bash
+   npx expo start --tunnel ngrok
+   ```
 
 ## Running the app on your phone
 
