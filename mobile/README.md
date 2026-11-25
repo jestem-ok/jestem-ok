@@ -1,15 +1,3 @@
-## Creating the app (mobile lead, once)
-
-From the repository root:
-
-```bash
-cd mobile
-npx create-expo-app@latest . --template default
-npm run lint        # check that ESLint works
-```
-
-Then update this README with the real commands and commit `package.json` **and** `package-lock.json`.
-
 # Mobile app
 
 React Native with [Expo](https://expo.dev), one app for iOS and Android.
@@ -57,6 +45,7 @@ The look of the senior screens comes from the prototype in [docs/design/](../doc
 - Until the backend is ready, use mock data so screens can be built and tested independently.
 
 
+<!--
 ## Reset project
 
 ```bash
@@ -64,3 +53,4 @@ npm run reset-project
 ```
 
 This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+-->
