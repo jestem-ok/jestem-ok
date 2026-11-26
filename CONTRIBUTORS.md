@@ -12,3 +12,4 @@ Example: `- Anna Kowalska (@akowalska), student developer, mobile`
 Artsiom Rodchanka (@ArtemidasEnjoyer), student
 
 - Rafał Różycki (@RavRose), student developer, mobile
+- Stanislav Solovei (@StanislavSolovei), student developer, mobile
