@@ -55,9 +55,8 @@ jobs:
           cache: maven
           cache-dependency-path: backend/pom.xml
       # Tests start a real PostgreSQL with Testcontainers (Docker is available on GitHub runners).
-      # After the Maven Wrapper is added (see docs/maintainer-setup.md), change "mvn" to "./mvnw".
       - name: Build and test
-        run: mvn -B verify
+        run: ./mvnw -B verify
 
   mobile:
     name: Mobile lint and type check

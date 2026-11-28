@@ -36,14 +36,14 @@ Nothing to install. Click **Code → Codespaces → Create codespace on main**. 
 
 ### Option B: your own computer
 
-You need Git, Java 21, Maven, Docker and Node.js (LTS).
+You need Git, Java 21, Docker and Node.js (LTS).
 
 ```bash
 git clone https://github.com/jestem-ok/jestem-ok.git
 cd jestem-ok
 docker compose up -d          # starts PostgreSQL on localhost:5432
 cd backend
-mvn spring-boot:run           # API on http://localhost:8080
+./mvnw spring-boot:run           # API on http://localhost:8080
 ```
 
 Useful backend addresses when it runs:
