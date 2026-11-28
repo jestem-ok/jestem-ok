@@ -7,10 +7,10 @@ Java 21 · Spring Boot 4.1 · Maven · PostgreSQL · Flyway
 ```bash
 docker compose up -d        # from the repository root: starts PostgreSQL
 cd backend
-mvn spring-boot:run
+./mvnw spring-boot:run
 ```
 
-No docker compose? `mvn spring-boot:test-run` starts the app with a temporary database in Docker (data is lost on stop).
+No docker compose? `./mvnw spring-boot:test-run` starts the app with a temporary database in Docker (data is lost on stop).
 
 | Address | What |
 |---|---|
@@ -21,7 +21,7 @@ No docker compose? `mvn spring-boot:test-run` starts the app with a temporary da
 ## Tests
 
 ```bash
-mvn verify
+./mvnw verify
 ```
 
 Tests use a real PostgreSQL started by Testcontainers, so **Docker must be running**.
